@@ -22,15 +22,14 @@ var Binary = (function(Math){
 			last	= l - 1,
 			n	= 0,
 			pow	= Math.pow,
-			chr	= str.charCodeAt,
 			i;
 		if (littleEndian){
 			for (i = l-1; i >= 0; i--){
-				n += (255 - chr(i)) * pow(256, i);
+				n += (255 - str.charCodeAt(i)) * pow(256, i);
 			}
 		} else {
 			for (i=0; i<l; i++){
-				n += chr(i) * pow(256, last - i);
+				n += str.charCodeAt(i) * pow(256, last - i);
 			}
 		}
 		return n;
