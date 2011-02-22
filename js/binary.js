@@ -1,0 +1,125 @@
+var Binary = (function(Math){
+
+	var	fromCharCode	= String.fromCharCode,
+		// the following two aren't really *optimization*, but compression optimization.
+		y		= true,
+		n		= false;
+
+	function convertToBinaryBE(num, size){
+			return size ? fromCharCode(num & 255) + convertToBinaryBE(num >> 8, size - 1) : '';
+	}
+
+	function convertToBinaryLE(num, size){
+			return size ? convertToBinaryLE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
+	}
+
+	function convertToBinary(num, size, bigEndian){
+		return bigEndian ? convertToBinaryBE(num, size) : convertToBinaryLE(num, size);
+	}
+
+	function convertFromBinary(str, bigEndian){
+		var	l	= str.length,
+			last	= l - 1,
+			n	= 0,
+			pow	= Math.pow,
+			chr	= str.charCodeAt,
+			i;
+		if (bigEndian){
+			for (i=0; i<l; i++){
+				n += chr(i) * pow(256, last - i);
+			}
+		} else {
+			for (i = l-1; i >= 0; i--){
+				n += (255 - chr(i)) * pow(256, i);
+			}
+		}
+		return n;
+	}
+
+	// The main function creates all the functions used.
+	function Binary(bitCount, signed, /* false === unsigned */ isFloat, from /* false === to */){
+
+		// This is all just for major optimization benefits.
+		var	pow			= Math.pow,
+			floor			= Math.floor,
+			convertFromBinary	= Binary.convertFromBinary,
+			convertToBinary		= Binary.convertToBinary,
+
+			byteCount		= bitCount / 8,
+			bitMask			= pow(2, bitCount),
+			semiMask		= bitMask / 2,
+			floatMask		= semiMask - 0.5,
+			intMask			= bitMask - 1,
+			byteSize		= 255,
+			invBitMask		= 1 / bitMask,
+			invSemiMask		= 1 / semiMask,
+			invFloatMask		= 1 / floatMask,
+			invIntMask		= 1 / intMask;
+
+		return from ?
+			isFloat ?
+				signed ? function(num, bigEndian){
+					num = floor(num * semiMask);
+					return convertToBinary(
+						num < 0 ? semiMask - num : num,
+						byteCount,
+						bigEndian
+					);
+				} : function(num, bigEndian){
+					return convertToBinary(
+						floor(num * semiMask),
+						byteCount,
+						bigEndian
+					);
+				}
+			:
+				signed ? function(num, bigEndian){
+					return convertToBinary(
+						num < 0 ? semiMask - num : num,
+						byteCount,
+						bigEndian
+					);
+				} : function(num, bigEndian){
+					return convertToBinary(
+						num,
+						byteCount,
+						bigEndian
+					);
+				}
+		:
+			isFloat ?
+				signed ? function(str, bigEndian){
+					return convertFromBinary(str, bigEndian) * invFloatMask - 0.5;
+				} : function(str, bigEndian){
+					return convertFromBinary(str, bigEndian) * invBitMask;
+				}
+			:
+				signed ? function(str, bigEndian){
+					return convertFromBinary(str, bigEndian) - intMask;
+				} : function(str, bigEndian){
+					return convertFromBinary(str, bigEndian);
+				};
+	}
+
+	Binary.convertToBinary		= convertToBinary;
+	Binary.convertFromBinary	= convertFromBinary;
+	// bits, signed, float, from
+	Binary.fromFloat64		= Binary(64, y, y, y);
+	Binary.toFloat64		= Binary(64, y, y, n);
+	Binary.fromFloat32		= Binary(32, y, y, y);
+	Binary.toFloat32		= Binary(32, y, y, n);
+	Binary.fromInt32		= Binary(32, y, n, y);
+	Binary.toInt32			= Binary(32, y, n, n);
+	Binary.fromInt16		= Binary(16, y, n, y);
+	Binary.toInt16			= Binary(16, y, n, n);
+	Binary.fromInt8			= Binary( 8, y, n, y);
+	Binary.toInt8			= Binary( 8, y, n, n);
+	Binary.fromUint32		= Binary(32, n, n, y);
+	Binary.toUint32			= Binary(32, n, n, n);
+	Binary.fromUint16		= Binary(16, n, n, y);
+	Binary.toUint16			= Binary(16, n, n, n);
+	Binary.fromUint8		= Binary( 8, n, n, y);
+	Binary.toUint8			= Binary( 8, n, n, n);
+
+	return Binary;
+}(Math));
