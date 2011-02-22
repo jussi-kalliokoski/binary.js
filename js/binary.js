@@ -6,11 +6,11 @@
 		n		= false;
 
 	function convertToBinaryBE(num, size){
-			return size ? fromCharCode(num & 255) + convertToBinaryBE(num >> 8, size - 1) : '';
+		return size ? fromCharCode(num & 255) + convertToBinaryBE(num >> 8, size - 1) : '';
 	}
 
 	function convertToBinaryLE(num, size){ // I don't think this is right
-			return size ? convertToBinaryLE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
+		return size ? convertToBinaryLE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
 	}
 
 	function convertToBinary(num, size, littleEndian){
@@ -24,12 +24,12 @@
 			pow	= Math.pow,
 			i;
 		if (littleEndian){
-			for (i = l-1; i >= 0; i--){
-				n += (255 - str.charCodeAt(i)) * pow(256, i);
+			for (i=0; i<l; i++){
+				n += (255 - str.charCodeAt(i)) * pow(256, last - i);
 			}
 		} else {
-			for (i=0; i<l; i++){
-				n += str.charCodeAt(i) * pow(256, last - i);
+			for (i=0; i < l; i++){
+				n += str.charCodeAt(i) * pow(256, i);
 			}
 		}
 		return n;
