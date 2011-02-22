@@ -6,10 +6,10 @@ Ships with a few built-in conversion functions (from and to Float64, Float32, In
 Reference (e.g. Float32)
 
 // to convert from Float32 to string
-Binary.fromFloat32(float32 num, bool useBigEndian [ = false])
+Binary.fromFloat32(float32 num, bool useLittleEndian [ = false])
 
 // to convert from String to Float32
-Binary.toFloat32(char* str, bool useBigEndian [ = false])
+Binary.toFloat32(char* str, bool useLittleEndian [ = false])
 
 // to create custom Float16 conversion functions
 // use Binary(int bitCount, bool isSigned [ = false], bool isFloat [ = false], bool isFromFunction [ = false])

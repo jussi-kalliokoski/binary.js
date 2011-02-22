@@ -9,28 +9,28 @@ var Binary = (function(Math){
 			return size ? fromCharCode(num & 255) + convertToBinaryBE(num >> 8, size - 1) : '';
 	}
 
-	function convertToBinaryLE(num, size){
+	function convertToBinaryLE(num, size){ // I don't think this is right
 			return size ? convertToBinaryLE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
 	}
 
-	function convertToBinary(num, size, bigEndian){
-		return bigEndian ? convertToBinaryBE(num, size) : convertToBinaryLE(num, size);
+	function convertToBinary(num, size, littleEndian){
+		return littleEndian ? convertToBinaryLE(num, size) : convertToBinaryBE(num, size);
 	}
 
-	function convertFromBinary(str, bigEndian){
+	function convertFromBinary(str, littleEndian){
 		var	l	= str.length,
 			last	= l - 1,
 			n	= 0,
 			pow	= Math.pow,
 			chr	= str.charCodeAt,
 			i;
-		if (bigEndian){
-			for (i=0; i<l; i++){
-				n += chr(i) * pow(256, last - i);
-			}
-		} else {
+		if (littleEndian){
 			for (i = l-1; i >= 0; i--){
 				n += (255 - chr(i)) * pow(256, i);
+			}
+		} else {
+			for (i=0; i<l; i++){
+				n += chr(i) * pow(256, last - i);
 			}
 		}
 		return n;
@@ -58,46 +58,46 @@ var Binary = (function(Math){
 
 		return from ?
 			isFloat ?
-				signed ? function(num, bigEndian){
+				signed ? function(num, littleEndian){
 					num = floor(num * semiMask);
 					return convertToBinary(
 						num < 0 ? semiMask - num : num,
 						byteCount,
-						bigEndian
+						littleEndian
 					);
-				} : function(num, bigEndian){
+				} : function(num, littleEndian){
 					return convertToBinary(
 						floor(num * semiMask),
 						byteCount,
-						bigEndian
+						littleEndian
 					);
 				}
 			:
-				signed ? function(num, bigEndian){
+				signed ? function(num, littleEndian){
 					return convertToBinary(
 						num < 0 ? semiMask - num : num,
 						byteCount,
-						bigEndian
+						littleEndian
 					);
-				} : function(num, bigEndian){
+				} : function(num, littleEndian){
 					return convertToBinary(
 						num,
 						byteCount,
-						bigEndian
+						littleEndian
 					);
 				}
 		:
 			isFloat ?
-				signed ? function(str, bigEndian){
-					return convertFromBinary(str, bigEndian) * invFloatMask - 0.5;
-				} : function(str, bigEndian){
-					return convertFromBinary(str, bigEndian) * invBitMask;
+				signed ? function(str, littleEndian){
+					return convertFromBinary(str, littleEndian) * invFloatMask - 0.5;
+				} : function(str, littleEndian){
+					return convertFromBinary(str, littleEndian) * invBitMask;
 				}
 			:
-				signed ? function(str, bigEndian){
-					return convertFromBinary(str, bigEndian) - intMask;
-				} : function(str, bigEndian){
-					return convertFromBinary(str, bigEndian);
+				signed ? function(str, littleEndian){
+					return convertFromBinary(str, littleEndian) - intMask;
+				} : function(str, littleEndian){
+					return convertFromBinary(str, littleEndian);
 				};
 	}
 

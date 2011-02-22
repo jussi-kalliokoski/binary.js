@@ -44,11 +44,13 @@ function reverseTest(name, values){
 	var	fromFunc	= Binary['from' + name],
 		toFunc		= Binary['to' + name],
 		l		= values.length,
+		value,
 		i;
 
 	for (i=0; i<l; i++){
 		try{
-			content += name + '(' + values[i] + '):\t' + (toFunc(fromFunc(values[i])) === values[i] ? 'success' : 'fail (' + toFunc(fromFunc(values[i])) + ')') + '\n';
+			value = toFunc(fromFunc(values[i]));
+			content += name + '(' + values[i] + '):\t' + (value === values[i] ? 'success' : 'fail (' + value + ')') + '\n';
 		} catch(e){
 			content += name + '(' + values[i] + '):\tfail\n';
 		}
