@@ -1,4 +1,4 @@
-var Binary = (function(Math){
+(function(global, Math){
 
 	var	fromCharCode	= String.fromCharCode,
 		// the following two aren't really *optimization*, but compression optimization.
@@ -120,5 +120,5 @@ var Binary = (function(Math){
 	Binary.fromUint8		= Binary( 8, n, n, y);
 	Binary.toUint8			= Binary( 8, n, n, n);
 
-	return Binary;
-}(Math));
+	global.Binary = Binary;
+}(this, Math));
