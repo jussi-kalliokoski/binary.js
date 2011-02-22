@@ -48,7 +48,7 @@
 			bitMask			= pow(2, bitCount),
 			semiMask		= bitMask / 2,
 			floatMask		= semiMask - 0.5,
-			intMask			= bitMask - 1,
+			intMask			= semiMask - 1,
 			byteSize		= 255,
 			invBitMask		= 1 / bitMask,
 			invSemiMask		= 1 / semiMask,
@@ -74,7 +74,7 @@
 			:
 				signed ? function(num, littleEndian){
 					return convertToBinary(
-						num < 0 ? semiMask - num : num,
+						num < 0 ? intMask - num : num,
 						byteCount,
 						littleEndian
 					);
@@ -94,7 +94,8 @@
 				}
 			:
 				signed ? function(str, littleEndian){
-					return convertFromBinary(str, littleEndian) - intMask;
+					var num = convertFromBinary(str, littleEndian);
+					return num > intMask ? intMask - num : num;
 				} : function(str, littleEndian){
 					return convertFromBinary(str, littleEndian);
 				};

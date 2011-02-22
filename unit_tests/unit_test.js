@@ -61,11 +61,17 @@ test([255, -100, 50, 1000, -500], [fromUint32, fromUint16, fromUint8]);
 content		+= '\n';
 
 reverseTest('Float32'	, [1.0, 0.75, 0.5, 0.25, 0.0, -0.25, -0.5, -0.75, -1.0]);
-reverseTest('Int32'	, [255, 100, 50, 1000]);
-reverseTest('Int16'	, [255, 100, 50, 1000]);
-reverseTest('Int8'	, [255, 100, 50, 1000]);
-reverseTest('Uint32'	, [255, -100, 50, 1000, -500]);
-reverseTest('Uint16'	, [255, -100, 50, 1000, -500]);
-reverseTest('Uint8'	, [255, -100, 50, 1000, -500]);
+reverseTest('Int32'	, [255, -100, 50, 1000, -500]);
+reverseTest('Int16'	, [255, -100, 50, 1000, -500]);
+reverseTest('Int8'	, [255, -100, 50, 1000, -500, 127, -128]);
+reverseTest('Uint32'	, [255, 100, 50, 1000]);
+reverseTest('Uint16'	, [255, 100, 50, 1000]);
+reverseTest('Uint8'	, [255, 100, 50, 1000]);
+
+var x,r = [];
+for (x=-128; x<128; x++){
+	r.push(x);
+}
+reverseTest('Int8'	, r);
 
 console.log(content);
