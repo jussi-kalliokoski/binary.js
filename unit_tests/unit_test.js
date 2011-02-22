@@ -3,8 +3,7 @@ if (typeof require === 'function'){
 	console.log('a');
 }
 
-var	fromFloat64	= Binary.fromFloat64,
-	fromFloat32	= Binary.fromFloat32,
+var	fromFloat32	= Binary.fromFloat32,
 	fromInt32	= Binary.fromInt32,
 	fromInt16	= Binary.fromInt16,
 	fromInt8	= Binary.fromInt8,
@@ -51,8 +50,8 @@ function reverseTest(name, values){
 	}
 }
 
-content		+= '| Floats\t| 32 bit\t| 64 bit\t\t|\n';
-test([1.0, 0.75, 0.5, 0.25, 0.0, -0.25, -0.5, -0.75, -1.0], [fromFloat32, fromFloat64]);
+content		+= '| Floats\t| 32 bit\t|\n';
+test([1.0, 0.75, 0.5, 0.25, 0.0, -0.25, -0.5, -0.75, -1.0], [fromFloat32]);
 content		+= '\n';
 content		+= '| Integers\t| 32 bit\t| 16 bit\t| 8 bit\t\t|\n';
 test([255, 100, 50, 1000], [fromInt32, fromInt16, fromInt8]);
@@ -61,7 +60,6 @@ content		+= '| Uint\t\t| 32 bit\t| 16 bit\t| 8 bit\t\t|\n';
 test([255, -100, 50, 1000, -500], [fromUint32, fromUint16, fromUint8]);
 content		+= '\n';
 
-reverseTest('Float64'	, [1.0, 0.75, 0.5, 0.25, 0.0, -0.25, -0.5, -0.75, -1.0]);
 reverseTest('Float32'	, [1.0, 0.75, 0.5, 0.25, 0.0, -0.25, -0.5, -0.75, -1.0]);
 reverseTest('Int32'	, [255, 100, 50, 1000]);
 reverseTest('Int16'	, [255, 100, 50, 1000]);

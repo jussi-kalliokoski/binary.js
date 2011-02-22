@@ -1,7 +1,7 @@
 (function(global, Math){
 
 	var	fromCharCode	= String.fromCharCode,
-		// the following two aren't really *optimization*, but compression optimization.
+		// the following two aren't really *performance optimization*, but compression optimization.
 		y		= true,
 		n		= false;
 
@@ -58,7 +58,7 @@
 		return from ?
 			isFloat ?
 				signed ? function(num, littleEndian){
-					num = floor(num * semiMask);
+					num = floor(num * floatMask);
 					return convertToBinary(
 						num < 0 ? semiMask - num : num,
 						byteCount,
@@ -102,9 +102,11 @@
 
 	Binary.convertToBinary		= convertToBinary;
 	Binary.convertFromBinary	= convertFromBinary;
-	// bits, signed, float, from
+	// these are deprecated because JS doesn't support 64 bit uint, so the conversion can't be performed.
+/*
 	Binary.fromFloat64		= Binary(64, y, y, y);
 	Binary.toFloat64		= Binary(64, y, y, n);
+*/
 	Binary.fromFloat32		= Binary(32, y, y, y);
 	Binary.toFloat32		= Binary(32, y, y, n);
 	Binary.fromInt32		= Binary(32, y, n, y);
