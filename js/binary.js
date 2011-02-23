@@ -89,7 +89,7 @@
 			isFloat ?
 				signed ? function(str, littleEndian){
 					var num = convertFromBinary(str, littleEndian);
-					return (num > intMask ? intMask - num : num) * invFloatMask;
+					return (num > floatMask ? floatMask - num : num) * invFloatMask;
 				} : function(str, littleEndian){
 					return convertFromBinary(str, littleEndian) * invBitMask;
 				}
