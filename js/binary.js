@@ -49,9 +49,12 @@
 			semiMask		= bitMask / 2,
 			floatMask		= semiMask - 0.5,
 			intMask			= semiMask - 1,
+// These are no longer needed, but left commented for future reference.
+/*
 			byteSize		= 255,
 			invBitMask		= 1 / bitMask,
 			invSemiMask		= 1 / semiMask,
+*/
 			invFloatMask		= 1 / floatMask,
 			invIntMask		= 1 / intMask;
 
