@@ -58,7 +58,7 @@
 		return from ?
 			isFloat ?
 				signed ? function(num, littleEndian){
-					num = floor(num * floatMask);
+					num = floor(num * intMask);
 					return convertToBinary(
 						num < 0 ? semiMask - num : num,
 						byteCount,
