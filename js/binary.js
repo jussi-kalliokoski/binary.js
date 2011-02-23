@@ -66,7 +66,7 @@
 					);
 				} : function(num, littleEndian){
 					return convertToBinary(
-						floor(num * semiMask),
+						floor(num * intMask),
 						byteCount,
 						littleEndian
 					);
