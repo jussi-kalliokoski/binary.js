@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="../binarystream.js"></script>
+	</head>
+	<body>
+		<script>
+var stream = new Stream("abcdefghijk");
+var num;
+while (num = stream.readInt8()){
+	document.write(num);
+}
+		</script>
+	</body>
+</html>
