@@ -8,9 +8,14 @@ var	proto	= Stream.prototype = {
 		read:		function(length){
 			var	self	= this,
 				data	= self.data.substr(0, length);
-			self.data	= self.data.substr(length);
-			self.pointer	+= length;
+			self.skip(length);
 			return data;
+		},
+		skip:		function(length){
+			var	self	= this,
+				data	= self.data	= self.data.substr(length);
+			self.pointer	+= length;
+			return data.length;
 		}
 	},
 	i, match;
