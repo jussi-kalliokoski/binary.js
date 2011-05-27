@@ -14,7 +14,7 @@
 	}
 
 	function convertToBinary(num, size, bigEndian){
-		return bigEndian ? convertToBinaryLE(num, size) : convertToBinaryBE(num, size);
+		return bigEndian ? convertToBinaryBE(num, size) : convertToBinaryLE(num, size);
 	}
 
 	function convertFromBinary(str, bigEndian){
