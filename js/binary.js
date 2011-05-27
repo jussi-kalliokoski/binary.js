@@ -6,11 +6,11 @@
 		n		= false;
 
 	function convertToBinaryLE(num, size){
-		return size ? fromCharCode(num & 255) + convertToBinaryBE(num >> 8, size - 1) : '';
+		return size ? fromCharCode(num & 255) + convertToBinaryLE(num >> 8, size - 1) : '';
 	}
 
 	function convertToBinaryBE(num, size){ // I don't think this is right
-		return size ? convertToBinaryLE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
+		return size ? convertToBinaryBE(num >> 8, size - 1) + fromCharCode(255 - num & 255) : '';
 	}
 
 	function convertToBinary(num, size, bigEndian){
