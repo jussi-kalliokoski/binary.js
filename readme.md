@@ -10,10 +10,10 @@ Reference (e.g. Float32)
 ```javascript
 
 // to convert from Float32 to string
-Binary.fromFloat32(float32 num, bool useLittleEndian [ = false])
+Binary.fromFloat32(float32 num, bool useBigEndian [ = false])
 
 // to convert from String to Float32
-Binary.toFloat32(char* str, bool useLittleEndian [ = false])
+Binary.toFloat32(char* str, bool useBigEndian [ = false])
 
 // to create custom Float16 conversion functions
 // use Binary(int bitCount, bool isSigned [ = false], bool isFloat [ = false], bool isFromFunction [ = false])

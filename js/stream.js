@@ -22,8 +22,8 @@ var	proto	= Stream.prototype = {
 
 function newType(type, bitCount, fn){
 	var	l	= bitCount / 8;
-	proto['read' + type + bitCount] = function(littleEndian){
-		return fn(this.read(l), littleEndian);
+	proto['read' + type + bitCount] = function(bigEndian){
+		return fn(this.read(l), bigEndian);
 	};
 }
 
