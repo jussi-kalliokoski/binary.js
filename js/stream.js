@@ -16,6 +16,17 @@ var	proto	= Stream.prototype = {
 				data	= self.data	= self.data.substr(length);
 			self.pointer	+= length;
 			return data.length;
+		},
+		readBuffer(buffer, bitCount, type){
+			var	self		= this,
+				converter	= 'read' + bitCount + type,
+				byteCount	= bitCount / 8,
+				l		= buffer.length,
+				i		= 0;
+			while (self.data && i < l){
+				buffer[i++] = self[converter]();
+			}
+			return i;
 		}
 	},
 	i, match;
