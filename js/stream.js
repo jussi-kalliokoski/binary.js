@@ -19,7 +19,7 @@ var	proto	= Stream.prototype = {
 		},
 		readBuffer:	function(buffer, bitCount, type){
 			var	self		= this,
-				converter	= 'read' + bitCount + type,
+				converter	= 'read' + type + bitCount,
 				byteCount	= bitCount / 8,
 				l		= buffer.length,
 				i		= 0;
