@@ -46,24 +46,24 @@
 
 			byteCount		= bitCount / 8,
 			bitMask			= pow(2, bitCount),
+			fullMask		= bitMask - 1,
 			semiMask		= bitMask / 2,
 			floatMask		= semiMask - 0.5,
 			intMask			= semiMask - 1,
-// These are no longer needed, but left commented for future reference.
-/*
-			byteSize		= 255,
+//			byteSize		= 255,
 			invBitMask		= 1 / bitMask,
 			invSemiMask		= 1 / semiMask,
-*/
 			invFloatMask		= 1 / floatMask,
 			invIntMask		= 1 / intMask;
 
 		return from ?
 			isFloat ?
 				signed ? function(num, bigEndian){
-					num = floor(num * intMask);
+					var oldnum = num;
+					num = floor(num < 0 ? num * semiMask + bitMask : num * intMask);
+					(num === 2147483647) && console.log('Got ' + oldnum + ', gave ' + num);
 					return convertToBinary(
-						num < 0 ? semiMask - num : num,
+						num,
 						byteCount,
 						bigEndian
 					);
@@ -77,7 +77,7 @@
 			:
 				signed ? function(num, bigEndian){
 					return convertToBinary(
-						num < 0 ? intMask - num : num,
+						num < 0 ? num + bitMask : num,
 						byteCount,
 						bigEndian
 					);
@@ -92,14 +92,14 @@
 			isFloat ?
 				signed ? function(str, bigEndian){
 					var num = convertFromBinary(str, bigEndian);
-					return num > floatMask ? (floatMask - num) * invFloatMask : num * invIntMask;
+					return num > intMask ? (num - bitMask) * invSemiMask : num * invIntMask;
 				} : function(str, bigEndian){
 					return convertFromBinary(str, bigEndian) * invIntMask;
 				}
 			:
 				signed ? function(str, bigEndian){
 					var num = convertFromBinary(str, bigEndian);
-					return num > intMask ? intMask - num : num;
+					return num > intMask ? num - bitMask : num;
 				} : function(str, bigEndian){
 					return convertFromBinary(str, bigEndian);
 				};
