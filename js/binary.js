@@ -43,25 +43,17 @@
 			floor			= Math.floor,
 			convertFromBinary	= Binary.convertFromBinary,
 			convertToBinary		= Binary.convertToBinary,
-
 			byteCount		= bitCount / 8,
 			bitMask			= pow(2, bitCount),
-			fullMask		= bitMask - 1,
 			semiMask		= bitMask / 2,
-			floatMask		= semiMask - 0.5,
 			intMask			= semiMask - 1,
-//			byteSize		= 255,
-			invBitMask		= 1 / bitMask,
 			invSemiMask		= 1 / semiMask,
-			invFloatMask		= 1 / floatMask,
 			invIntMask		= 1 / intMask;
 
 		return from ?
 			isFloat ?
 				signed ? function(num, bigEndian){
-					var oldnum = num;
 					num = floor(num < 0 ? num * semiMask + bitMask : num * intMask);
-					(num === 2147483647) && console.log('Got ' + oldnum + ', gave ' + num);
 					return convertToBinary(
 						num,
 						byteCount,
