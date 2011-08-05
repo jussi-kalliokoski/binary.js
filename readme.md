@@ -1,6 +1,8 @@
 binary.js
 =========
 
+WARNING: THE FLOAT CONVERSION IS NOT ACTUALLY CONVERTING TO FLOATS CORRECTLY!!! It's actually converting to signed integers, which are then converted to -1.0 – 1.0 floats, sorry about that... It's a remnant from when I was using this for my personal things, and realized half-way that I didn't need actual floats. Maybe I will add actual floats in the future.
+
 Provides a very fast and robust interface for binary conversions in JavaScript.
 Ships with a few built-in conversion functions (from and to Float32, Int32, Int16, Int8, Uint32, Uint16 and Uint8), and it's very simple to expand and make your own.
 
