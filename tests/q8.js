@@ -1,6 +1,6 @@
 var	Binary		= require('../js/binary.js').Binary;
 
-Binary.toFloat8 = Binary(8, 1, 1, 0);
+Binary.toQ8 = Binary(8, 1, 1, 0);
 
 function	pad(count){
 	count	= count || 1;
@@ -22,7 +22,7 @@ function	binarize(num, length){
 var	i, res;
 
 for (i=0; i<256; i++){
-	res	= Binary.toFloat8(String.fromCharCode(i));
+	res	= Binary.toQ8(String.fromCharCode(i));
 	console.log(pad(2,
 		binarize(i, 8),
 		res
