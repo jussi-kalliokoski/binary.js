@@ -29,3 +29,8 @@ Tips:
 * Doesn't support converting data that is not byte aligned (bitCount % 8 !== 0)
 
 Licensed under MIT License.
+
+Disclaimer
+----------
+
+You're probably better off not using this library, and I suggest you don't, so don't come blaming me if it doesn't work like you thought it would.
