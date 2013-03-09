@@ -1,6 +1,6 @@
 # binary.js
 
-Provides a very fast and robust interface for binary conversions in JavaScript.
+Provides a ~~very fast~~ and ~~robust~~ interface for binary conversions in JavaScript.
 Ships with a few built-in conversion functions (from and to Q32, Int32, Int16, Int8, Uint32, Uint16 and Uint8), and it's very simple to expand and make your own.
 
 ## Reference (e.g. Q32 [Q: a ranged value, -1 – +1] )
